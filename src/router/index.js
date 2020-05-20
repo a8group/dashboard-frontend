@@ -84,6 +84,24 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/blocks',
+    component: Layout,
+    redirect: '/blocks',
+    name: 'Block',
+    meta: {
+      title: '服务管理',
+      icon: 'example'
+    },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/block/list'),
+        name: 'BlockList',
+        meta: { title: '服务列表', icon: 'list' }
+      }
+    ]
+  },
+  {
     path: '/documentation',
     component: Layout,
     children: [
