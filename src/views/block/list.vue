@@ -8,52 +8,29 @@
       highlight-current-row
       style="width: 100%"
     >
-      <el-table-column align="center" label="ID" width="80">
+      <el-table-column align="left" label="服务名称（唯一标识）">
         <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="180px" align="center" label="Date">
-        <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="120px" align="center" label="Author">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="100px" label="Importance">
-        <template slot-scope="scope">
-          <svg-icon
-            v-for="n in +scope.row.importance"
-            :key="n"
-            icon-class="star"
-            class="meta-item__icon"
-          />
-        </template>
-      </el-table-column>
-
-      <el-table-column class-name="status-col" label="Status" width="110">
-        <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">{{ row.status }}</el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column min-width="300px" label="Title">
-        <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.id" class="link-type">
-            <span>{{ row.title }}</span>
+          <router-link :to="'/blocks/'+scope.row.metadata.name+'/edit'" class="link-type">
+            <span>{{ scope.row.metadata.name }}</span>
           </router-link>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="Actions" width="120">
+      <el-table-column align="left" label="UUID">
         <template slot-scope="scope">
-          <router-link :to="'/example/edit/'+scope.row.id">
+          <span>{{ scope.row.metadata.uid }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="left" label="创建时间">
+        <template slot-scope="scope">
+          <span>{{ scope.row.metadata.created_at }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="操作" width="120">
+        <template slot-scope="scope">
+          <router-link :to="'/blocks/'+scope.row.metadata.name+'/edit'">
             <el-button type="primary" size="small" icon="el-icon-edit">Edit</el-button>
           </router-link>
         </template>
@@ -71,20 +48,20 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/block'
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import { fetchList } from "@/api/block";
+import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 
 export default {
-  name: 'BlockList',
+  name: "BlockList",
   components: { Pagination },
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      }
-      return statusMap[status]
+        published: "success",
+        draft: "info",
+        deleted: "danger"
+      };
+      return statusMap[status];
     }
   },
   data() {
@@ -94,24 +71,24 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 1000
       }
-    }
+    };
   },
   created() {
-    this.getList()
+    this.getList();
   },
   methods: {
     getList() {
-      this.listLoading = true
+      this.listLoading = true;
       fetchList(this.listQuery).then(response => {
-        this.list = response.items
-        this.total = response.items.length
-        this.listLoading = false
-      })
+        this.list = response.items;
+        this.total = response.items.length;
+        this.listLoading = false;
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -122,5 +99,9 @@ export default {
   position: absolute;
   right: 15px;
   top: 10px;
+}
+.total-container {
+  background: #fff;
+  padding: 32px 16px;
 }
 </style>

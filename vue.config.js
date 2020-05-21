@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Element Admin' // page title
+const name = defaultSettings.title || 'Architect' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -36,12 +36,13 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
+    // before: require('./mock/mock-server.js'),
     proxy: {
-      "^/api/": {
-        target: "http://127.0.0.1:8889",
-        changeOrigin: false,
-        secure: false
+      '^/api': {
+        target: "http://127.0.0.1:8889"
+      },
+      '^/dev-api': {
+        target: "http://127.0.0.1:9526"
       }
     },
   },
