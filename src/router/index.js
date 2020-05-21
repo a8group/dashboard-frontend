@@ -107,6 +107,13 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        path: 'yaml-test',
+        component: () => import('@/views/block/yaml-test'),
+        name: 'YamlTest',
+        meta: { title: '测试yaml', noCache: true, activeMenu: '/blocks/list' },
+        hidden: true
+      },
+      {
         path: 'list',
         component: () => import('@/views/block/list'),
         name: 'BlockList',
