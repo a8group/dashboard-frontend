@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import BlockDetail from "./components/BlockDetail";
+import BlockDetail from './components/BlockDetail'
 
 export default {
-  name: "EditForm",
+  name: 'EditForm',
   components: { BlockDetail }
-};
+}
 </script>
 

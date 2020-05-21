@@ -48,20 +48,20 @@
 </template>
 
 <script>
-import { fetchList } from "@/api/block";
-import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
+import { fetchList } from '@/api/block'
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
-  name: "BlockList",
+  name: 'BlockList',
   components: { Pagination },
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: "success",
-        draft: "info",
-        deleted: "danger"
-      };
-      return statusMap[status];
+        published: 'success',
+        draft: 'info',
+        deleted: 'danger'
+      }
+      return statusMap[status]
     }
   },
   data() {
@@ -73,22 +73,22 @@ export default {
         page: 1,
         limit: 1000
       }
-    };
+    }
   },
   created() {
-    this.getList();
+    this.getList()
   },
   methods: {
     getList() {
-      this.listLoading = true;
+      this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response.items;
-        this.total = response.items.length;
-        this.listLoading = false;
-      });
+        this.list = response.items
+        this.total = response.items.length
+        this.listLoading = false
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>

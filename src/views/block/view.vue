@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import BlockDetail from "./components/BlockDetail";
+import BlockDetail from './components/BlockDetail'
 
 export default {
-  name: "ViewBlock",
+  name: 'ViewBlock',
   components: { BlockDetail }
-};
+}
 </script>
